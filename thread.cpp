@@ -104,33 +104,47 @@ int main(int argc, char **argv)
 	  filename = argv[1];
 		
 	  file.open(filename.c_str());
-	  int count = 0;
+	  int count = 0, iter = 0;
 
+	  file >> word;
+//	  cout << "word - " << word << "\n";
+	  int index = atoi(word.c_str());
+	  int *arr = new int[index];
 	  while (file >> word)
  	  {
-      		data.push_back(word);
+		arr[iter] = atoi(word.c_str());
+		iter = iter + 1;
 	  }
 
-     	 // cout << data.at(3);
-	int index = atoi(data.at(0).c_str());	
+          for(int i=0; i< index; i++)
+	  {
+		cout << arr[i] << " ";
 
-	for(int i=1; i<data.size(); i++)
-	{
-		int num = atoi(data.at(i).c_str());
-		array.push_back(num);
-	}
+	  }
+	  cout << "\n";
+	
+     	//  cout << "size = "<<data.size()<< "\n";
+	//int index = atoi(data.at(0).c_str());	
 
+//	for(int i=1; i<data.size(); i++)
+//	{
+//		int num = atoi(data.at(i).c_str());
+//		array.push_back(num);
+//	}
 
+//	cout << "array size = "<< array.size() << "\n";
 /////////////////////////////////////////////////////////
 
     //printf("Before Thread\n");
-    pthread_t thread_id, thread_id1, thread_id2; 
-    int arr[index];
+    pthread_t thread_id, thread_id1, thread_id2;
+//    cout << "tread size = "<< index << "\n"; 
+    
+    
         for(int i=0; i<array.size(); i++)
 	{
 		arr[i] = array.at(i);
 	}
-    sizeS = array.size();
+    sizeS = index;
 
     pthread_create(&thread_id, NULL, average, (void*)arr);   //avg
     pthread_create(&thread_id1, NULL, standardDeviation, (void*)arr); 
@@ -141,6 +155,7 @@ int main(int argc, char **argv)
 
     cout << "the average value is " << mean1 << "\n";
     cout << "the standard deviation value is " << standardDev << "\n";
-    cout << "the median values is " << median << "\n";
+    cout << "the median values is " << median << "\n"; 
+    delete arr;
 }
 
