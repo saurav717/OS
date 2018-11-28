@@ -1,0 +1,3 @@
+the mean value is 4.50273
+the standard deviation value is 2.87218
+the median value is 5
